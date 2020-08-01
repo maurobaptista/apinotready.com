@@ -15,7 +15,16 @@ class CreateEndpointsTable extends Migration
     {
         Schema::create('endpoints', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->nullable();
+            $table->string('method');
+            $table->string('endpoint');
+            $table->integer('response');
+            $table->text('body');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

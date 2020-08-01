@@ -15,7 +15,12 @@ class CreateAccessesTable extends Migration
     {
         Schema::create('accesses', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('endpoint_id');
+            $table->timestamp('created_at', 0)->nullable();
+
+            $table->foreign('endpoint_id')
+                ->references('id')->on('endpoints')
+                ->onDelete('cascade');
         });
     }
 
