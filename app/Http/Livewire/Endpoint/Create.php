@@ -25,6 +25,14 @@ class Create extends Component
     /** @var string */
     public $body = '';
 
+    /** @var bool */
+    public $recentCreatedEndpoint = false;
+
+    /** @var string[] */
+    protected $listeners = [
+        'endpointCreated' => 'showEndpointCreated'
+    ];
+
     public function updated(string $field): void
     {
         $this->validateOnly($field, $this->rules());
@@ -36,6 +44,11 @@ class Create extends Component
             'methods' => config('endpoint.methods'),
             'responses' => config('endpoint.responses'),
         ]);
+    }
+
+    public function showEndpointCreated(): void
+    {
+        $this->recentCreatedEndpoint = true;
     }
 
     public function submit(): void
@@ -53,6 +66,8 @@ class Create extends Component
             'response' => $this->response,
             'body' => $this->body,
         ]);
+
+        $this->emit('endpointCreated');
     }
 
     private function rules(): array
@@ -62,7 +77,7 @@ class Create extends Component
             'endpoint' => ['required', 'min:2', 'max:256'],
             'method' => ['required', new MethodIsValid],
             'response' => ['required', new ResponseIsValid],
-            'body' => ['required', 'json'],
+            'body' => ['json'],
         ];
     }
 }
