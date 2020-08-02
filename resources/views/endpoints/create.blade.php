@@ -62,14 +62,20 @@
                 margin-bottom: 30px;
             }
         </style>
+
+        @livewireStyles
     </head>
     <body>
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
                     ApiNotReady
+
+                    @livewire('endpoint.create')
                 </div>
             </div>
         </div>
+
+        @livewireScripts
     </body>
 </html>

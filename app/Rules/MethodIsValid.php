@@ -6,16 +6,10 @@ use Illuminate\Contracts\Validation\Rule;
 
 class MethodIsValid implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function validate()
     {
-        //
+        return false;
     }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -27,7 +21,7 @@ class MethodIsValid implements Rule
     {
         $methods = config('endpoint.methods');
 
-        return in_array($value, $methods);
+        return in_array(strtoupper($value), $methods);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\Hasheable;
+use Facades\App\Helpers\Endpoint as EndpointHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -46,5 +47,21 @@ class Endpoint extends Model
             : preg_replace('/{subdomain}/', $this->user->hash, config('endpoint.sub_domain'), 1);
 
         return  $domain . $this->endpoint;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setMethodAttribute(string $value): void
+    {
+        $this->attributes['method'] = strtoupper($value);
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setEndpointAttribute($value): void
+    {
+        $this->attributes['endpoint'] = EndpointHelper::treat($value, request()->email === null);
     }
 }

@@ -35,15 +35,7 @@ class StoreController
     {
         $data = $request->validated();
 
-        if (! empty($request->email)) {
-            $user = $this->user->firstOrCreate(['email' => $request->email]);
 
-            $data = array_merge($data, [
-                'user_id' => $user->id,
-            ]);
-        }
-
-        $data['endpoint'] = EndpointHelper::treat($request->endpoint, $request->email === null);
 
         $endpoint = $this->endpoint->create($data);
 

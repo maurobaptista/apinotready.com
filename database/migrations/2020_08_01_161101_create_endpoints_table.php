@@ -15,7 +15,7 @@ class CreateEndpointsTable extends Migration
     {
         Schema::create('endpoints', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->nullable();
+            $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('method');
             $table->string('endpoint');
             $table->integer('response');
