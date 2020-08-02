@@ -1,8 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::domain('{user}.' . config('app.domain'))->group(function () {
+    Route::fallback(\App\Http\Controllers\Endpoint\ShowController::class);
+});
+
+Route::group([
+    'prefix' => 'api/',
+], function () {
+   Route::fallback(\App\Http\Controllers\Endpoint\ShowController::class);
 });

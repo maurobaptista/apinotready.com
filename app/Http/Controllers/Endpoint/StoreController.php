@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Endpoint;
 use App\Http\Requests\Endpoint\StoreRequest;
 use App\Models\Endpoint;
 use App\Models\User;
+use Facades\App\Helpers\Endpoint as EndpointHelper;
 use Illuminate\Http\JsonResponse;
 
 class StoreController
@@ -42,8 +43,13 @@ class StoreController
             ]);
         }
 
+        $data['endpoint'] = EndpointHelper::treat($request->endpoint, $request->email === null);
+
         $endpoint = $this->endpoint->create($data);
 
-        return response()->json($endpoint, 201);
+        return response()->json(
+            $endpoint->only('hash', 'method', 'response', 'body', 'url'),
+            201
+        );
     }
 }

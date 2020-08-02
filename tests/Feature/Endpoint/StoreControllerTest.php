@@ -1,8 +1,13 @@
 <?php
 
+use Facades\App\Helpers\Endpoint;
 use function Pest\Laravel\{postJson, assertDatabaseHas};
 
 it('creates an endpoint without an user', function () {
+    Endpoint::shouldReceive('treat')
+        ->with('/test', true)
+        ->andReturn('/abc/test');
+
     $response = postJson('/endpoints', [
         'email' => null,
         'endpoint' => '/test',
@@ -12,9 +17,16 @@ it('creates an endpoint without an user', function () {
     ]);
 
     $response->assertStatus(201);
+    $response->assertExactJson([
+        'hash' => 'DJ4MZ3LZ8K',
+        'method' => 'POST',
+        'response' => 201,
+        'body' => '{"message": "success"}',
+        'url' => 'http://apinotready.localhost/api/abc/test',
+    ]);
     assertDatabaseHas('endpoints', [
         'user_id' => null,
-        'endpoint' => '/test',
+        'endpoint' => '/abc/test',
         'method' => 'POST',
         'response' => 201,
         'body' => '{"message": "success"}',
@@ -31,6 +43,13 @@ it('creates an endpoint creating an user', function () {
     ]);
 
     $response->assertStatus(201);
+    $response->assertExactJson([
+        'hash' => 'DJ4MZ3LZ8K',
+        'method' => 'POST',
+        'response' => 201,
+        'body' => '{"message": "success"}',
+        'url' => 'http://45EG523LPK.apinotready.localhost/test',
+    ]);
     assertDatabaseHas('endpoints', [
         'user_id' => 1,
         'endpoint' => '/test',
@@ -57,6 +76,13 @@ it('creates an endpoint reusing an user', function () {
     ]);
 
     $response->assertStatus(201);
+    $response->assertExactJson([
+        'hash' => 'DJ4MZ3LZ8K',
+        'method' => 'POST',
+        'response' => 201,
+        'body' => '{"message": "success"}',
+        'url' => 'http://REG9MQ5G2J.apinotready.localhost/test',
+    ]);
     assertDatabaseHas('endpoints', [
         'user_id' => 999,
         'endpoint' => '/test',

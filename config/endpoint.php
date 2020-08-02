@@ -1,6 +1,15 @@
 <?php
 
 return [
+    /**
+     * Domains that will return expected body
+     */
+    'domain' => env('API_DOMAIN'),
+    'sub_domain' => env('API_SUBDOMAIN'),
+
+    /**
+     * Allowed methods
+     */
     'methods' => [
         'GET',
         'HEAD',
@@ -11,6 +20,9 @@ return [
         'PATCH',
     ],
 
+    /**
+     * Allowed response codes
+     */
     'responses' => [
         100 => 'Continue',
         101 => 'Switching Protocol',

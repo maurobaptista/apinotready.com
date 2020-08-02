@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Endpoint;
 
+use Facades\App\Helpers\Endpoint;
 use App\Rules\MethodIsValid;
 use App\Rules\ResponseIsValid;
 use Illuminate\Foundation\Http\FormRequest;
