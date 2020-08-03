@@ -14,7 +14,7 @@ class Create extends Component
     public $email = '';
 
     /** @var string */
-    public $endpoint = '';
+    public $segments = '';
 
     /** @var string */
     public $method = 'GET';
@@ -24,6 +24,9 @@ class Create extends Component
 
     /** @var string */
     public $body = '';
+
+    /** @var Endpoint */
+    public $endpoint;
 
     /** @var bool */
     public $recentCreatedEndpoint = false;
@@ -59,13 +62,13 @@ class Create extends Component
             ? null
             : User::firstOrCreate(['email' => $this->email])->id;
 
-        Endpoint::create([
+        $this->endpoint = Endpoint::create([
             'user_id' => $userId,
-            'endpoint' => $this->endpoint,
+            'segments' => $this->segments,
             'method' => $this->method,
             'response' => $this->response,
             'body' => $this->body,
-        ]);
+        ])->toArray();
 
         $this->emit('endpointCreated');
     }
@@ -74,7 +77,7 @@ class Create extends Component
     {
         return [
             'email' => ['nullable', 'email'],
-            'endpoint' => ['required', 'min:2', 'max:256'],
+            'segments' => ['required', 'min:2', 'max:256'],
             'method' => ['required', new MethodIsValid],
             'response' => ['required', new ResponseIsValid],
             'body' => ['json'],

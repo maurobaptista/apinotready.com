@@ -35,12 +35,15 @@ class ShowController
      */
     public function __invoke(User $user, Request $request): JsonResponse
     {
-        $endpoint = EndpointHelper::clean($request->url(), $user->exists);
+        $url = Str::after($request->url(), config('app.domain'));
+        $segments = ($user->exists)
+            ? $url
+            : preg_replace('/\/api/', '', $url, 1);
 
         $model = $this->endpoint->query()
             ->where('user_id', $user->id)
             ->where('method', $request->method())
-            ->where('endpoint', $endpoint)
+            ->where('segments', trim($segments, '/'))
             ->first();
 
         return response()->json($model->bodyAsArray, $model->response);

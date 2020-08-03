@@ -17,7 +17,7 @@ class CreateEndpointsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->string('method');
-            $table->string('endpoint');
+            $table->string('segments');
             $table->integer('response');
             $table->text('body');
             $table->timestamps();

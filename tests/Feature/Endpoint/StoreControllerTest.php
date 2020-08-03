@@ -3,35 +3,6 @@
 use Facades\App\Helpers\Endpoint;
 use function Pest\Laravel\{postJson, assertDatabaseHas};
 
-it('creates an endpoint without an user', function () {
-    Endpoint::shouldReceive('treat')
-        ->with('/test', true)
-        ->andReturn('/abc/test');
-
-    $response = postJson('/endpoints', [
-        'email' => null,
-        'endpoint' => '/test',
-        'method' => 'POST',
-        'response' => 201,
-        'body' => '{"message": "success"}',
-    ]);
-
-    $response->assertStatus(201);
-    $response->assertExactJson([
-        'hash' => 'DJ4MZ3LZ8K',
-        'method' => 'POST',
-        'response' => 201,
-        'body' => '{"message": "success"}',
-        'url' => 'http://apinotready.localhost/api/abc/test',
-    ]);
-    assertDatabaseHas('endpoints', [
-        'user_id' => null,
-        'endpoint' => '/abc/test',
-        'method' => 'POST',
-        'response' => 201,
-        'body' => '{"message": "success"}',
-    ]);
-});
 
 it('creates an endpoint creating an user', function () {
     $response = postJson('/endpoints', [

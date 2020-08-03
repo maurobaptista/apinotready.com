@@ -10,7 +10,7 @@ $factory->define(Endpoint::class, function (Faker $faker) {
         'user_id' => function () {
             return factory(\App\Models\User::class)->create()->id;
         },
-        'endpoint' => '/test',
+        'segments' => '/test',
         'method' => 'POST',
         'response' => 201,
         'body' => '{"message": "success"}',

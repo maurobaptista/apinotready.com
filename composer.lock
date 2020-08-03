@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55c4d8f56b34146fee9a915735a57a4a",
+    "content-hash": "f6c52579f884b0bffd986c7d28050bce",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4936,6 +4936,55 @@
                 "unit"
             ],
             "time": "2020-06-11T18:44:12+00:00"
+        },
+        {
+            "name": "pestphp/pest-plugin-livewire",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pestphp/pest-plugin-livewire.git",
+                "reference": "7cfcfc30787f43cf4fc0cb9a7dfa1420b6f796f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-livewire/zipball/7cfcfc30787f43cf4fc0cb9a7dfa1420b6f796f7",
+                "reference": "7cfcfc30787f43cf4fc0cb9a7dfa1420b6f796f7",
+                "shasum": ""
+            },
+            "require": {
+                "livewire/livewire": "^1.2",
+                "pestphp/pest": "^0.2",
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.2",
+                "pestphp/pest-dev-tools": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pest\\Livewire\\": "src/"
+                },
+                "files": [
+                    "src/Autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The Pest Livewire Plugin",
+            "keywords": [
+                "framework",
+                "livewire",
+                "pest",
+                "php",
+                "plugin",
+                "test",
+                "testing",
+                "unit"
+            ],
+            "time": "2020-06-17T12:26:37+00:00"
         },
         {
             "name": "phar-io/manifest",

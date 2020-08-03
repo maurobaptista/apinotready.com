@@ -13,7 +13,7 @@ class Endpoint extends Model
 
     /** @var string[] */
     protected $fillable = [
-        'user_id', 'endpoint', 'method', 'response', 'body',
+        'user_id', 'segments', 'method', 'response', 'body',
     ];
 
     /** @var string[] */
@@ -46,7 +46,7 @@ class Endpoint extends Model
             ? config('endpoint.domain')
             : preg_replace('/{subdomain}/', $this->user->hash, config('endpoint.sub_domain'), 1);
 
-        return  $domain . $this->endpoint;
+        return  $domain . '/' . $this->segments;
     }
 
     /**
@@ -60,8 +60,23 @@ class Endpoint extends Model
     /**
      * @param string $value
      */
-    public function setEndpointAttribute($value): void
+    public function setSegmentsAttribute(string $value): void
     {
-        $this->attributes['endpoint'] = EndpointHelper::treat($value, request()->email === null);
+        $this->attributes['segments'] = trim($value, '/');
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'user' => optional($this->user)->hash,
+            'segments' => $this->segments,
+            'method' => $this->method,
+            'response' => $this->response,
+            'body' => $this->bodyAsArray,
+            'url' => $this->url,
+        ];
     }
 }
