@@ -54,21 +54,16 @@ class Create extends Component
         $this->recentCreatedEndpoint = true;
     }
 
-    public function submit(): void
+    public function store(): void
     {
-        $this->validate($this->rules());
+        $validatedData = $this->validate($this->rules());
 
         $userId = (empty($this->email))
             ? null
             : User::firstOrCreate(['email' => $this->email])->id;
+        $validatedData['user_id'] = $userId;
 
-        $this->endpoint = Endpoint::create([
-            'user_id' => $userId,
-            'segments' => $this->segments,
-            'method' => $this->method,
-            'response' => $this->response,
-            'body' => $this->body,
-        ])->toArray();
+        $this->endpoint = Endpoint::create($validatedData)->toArray();
 
         $this->emit('endpointCreated');
     }
