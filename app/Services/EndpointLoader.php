@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Endpoint;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class EndpointLoader
 {
@@ -32,18 +33,17 @@ class EndpointLoader
      */
     private function getFromUser(User $user, array $segments, string $method): Endpoint
     {
-        /** @var Endpoint|null $endpoint */
-        $endpoint = $user->endpoints()
+        $endpoints = $user->endpoints()
             ->where('segments', implode('/', $segments))
-            ->first();
+            ->get();
 
-        abort_if($endpoint === null, 404, 'Endpoint not found');
+        abort_if($endpoints->isEmpty(), 404, 'Endpoint not found');
 
-        $hasMethod = (bool) $endpoint->where('method', $method)->count();
+        $hasMethod = (bool) $endpoints->where('method', $method)->count();
 
         abort_unless($hasMethod, 405, 'Invalid method');
 
-        return $endpoint;
+        return $endpoints->first();
     }
 
     /**

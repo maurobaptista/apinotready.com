@@ -12,7 +12,5 @@ $factory->define(Endpoint::class, function (Faker $faker) {
         },
         'segments' => '/test',
         'method' => 'POST',
-        'response' => 201,
-        'body' => '{"message": "success"}',
     ];
 });

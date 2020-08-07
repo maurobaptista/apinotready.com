@@ -30,6 +30,9 @@ class EndpointController
     {
         $endpoint = $this->endpointLoader->load($user, $request->segments(), $request->method());
 
-        return response()->json($endpoint->bodyAsArray, $endpoint->response);
+        return response()->json(
+            $endpoint->activeResponse->body,
+            $endpoint->activeResponse->code
+        );
     }
 }

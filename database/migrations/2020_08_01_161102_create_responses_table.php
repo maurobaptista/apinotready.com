@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResponsesTable extends Migration
+class CreateEndpointsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateResponsesTable extends Migration
      */
     public function up()
     {
-        Schema::create('endpoints', function (Blueprint $table) {
+        Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->string('method');
-            $table->string('segments');
+            $table->bigInteger('endpoint_id')->unsigned()->nullable();
+            $table->boolean('active')->default(false);
+            $table->integer('code');
+            $table->text('body');
             $table->timestamps();
 
-            $table->foreign('user_id')
-                ->references('id')->on('users')
+            $table->foreign('endpoint_id')
+                ->references('id')->on('endpoints')
                 ->onDelete('cascade');
-
-            $table->unique(['user_id', 'method', 'segments']);
         });
     }
 
@@ -35,6 +34,6 @@ class CreateResponsesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('endpoints');
+        Schema::dropIfExists('responses');
     }
 }

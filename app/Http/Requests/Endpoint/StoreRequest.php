@@ -4,7 +4,7 @@ namespace App\Http\Requests\Endpoint;
 
 use Facades\App\Helpers\Endpoint;
 use App\Rules\MethodIsValid;
-use App\Rules\ResponseIsValid;
+use App\Rules\CodeIsValid;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -20,7 +20,7 @@ class StoreRequest extends FormRequest
             'email' => ['nullable', 'email'],
             'endpoint' => ['required', 'min:2', 'max:256'],
             'method' => ['required', new MethodIsValid],
-            'response' => ['required', new ResponseIsValid],
+            'response' => ['required', new CodeIsValid],
             'body' => ['required', 'json'],
         ];
     }

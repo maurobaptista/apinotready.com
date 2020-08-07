@@ -3,17 +3,33 @@
 namespace App\Models;
 
 use App\Models\Traits\Hasheable;
-use Facades\App\Helpers\Endpoint as EndpointHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
+/**
+ * Class Endpoint
+ * @package App\Models
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $segments
+ * @property string $method
+ *
+ * @property Collection $responses
+ * @property Response $activeResponse
+ * @property User|null $user
+ * @property string $url
+ * @property string $hash
+ */
 class Endpoint extends Model
 {
     use Hasheable;
 
     /** @var string[] */
     protected $fillable = [
-        'user_id', 'segments', 'method', 'response', 'body',
+        'user_id', 'segments', 'method',
     ];
 
     /** @var string[] */
@@ -30,11 +46,19 @@ class Endpoint extends Model
     }
 
     /**
-     * @return array|null
+     * @return HasMany
      */
-    public function getBodyAsArrayAttribute(): ?array
+    public function responses(): HasMany
     {
-        return json_decode($this->body, true);
+        return $this->hasMany(Response::class);
+    }
+
+    /**
+     * @return Response
+     */
+    public function getActiveResponseAttribute(): ?Response
+    {
+        return $this->responses->firstWhere('active', true);
     }
 
     /**
@@ -75,8 +99,8 @@ class Endpoint extends Model
             'user' => optional($this->user)->hash,
             'segments' => $this->segments,
             'method' => $this->method,
-            'response' => $this->response,
-            'body' => $this->bodyAsArray,
+            'code' => $this->activeResponse->code,
+            'body' => $this->activeResponse->body,
             'url' => $this->url,
         ];
     }
