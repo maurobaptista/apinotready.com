@@ -35,7 +35,17 @@ class ShowController
      */
     public function __invoke(User $user, Request $request): JsonResponse
     {
-        $url = Str::after($request->url(), config('app.domain'));
+        $segments = $request->segments();
+
+        if ($user->exists === false) {
+            abort_unless($segments[0], 400, 'Invalid Url');
+
+            $endpoint = $this->endpoint->findByHash(array_shift($segments));
+
+            abort_if($endpoint === null, 404, 'Endpoint not found');
+        }
+
+        $url = implode('/', $segments);
         $segments = ($user->exists)
             ? $url
             : preg_replace('/\/api/', '', $url, 1);
@@ -45,6 +55,8 @@ class ShowController
             ->where('method', $request->method())
             ->where('segments', trim($segments, '/'))
             ->first();
+
+        abort_if($model === null, 404, 'Endpoint not found');
 
         return response()->json($model->bodyAsArray, $model->response);
     }

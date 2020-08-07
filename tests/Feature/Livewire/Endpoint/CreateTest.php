@@ -11,12 +11,13 @@ it('properly saves data when submitted with no email')
     ->set('body', '{"message": "success"}')
     ->call('store')
     ->assertSet('endpoint', [
+        'hash' => 'DJ4MZ3LZ8K',
         'user' => null,
-        'segments' => 'DJ4MZ3LZ8K/test',
+        'segments' => 'test',
         'method' => 'POST',
         'response' => 201,
         'body' => ["message" => "success"],
-        'url' => 'http://apinotready.localhost/api/DJ4MZ3LZ8K/test',
+        'url' => 'http://api.apinotready.localhost/DJ4MZ3LZ8K/test',
     ])
     ->assertEmitted('endpointCreated')
     ->emit('endpointCreated')
@@ -31,6 +32,7 @@ it('properly saves data when submitted with email')
     ->set('body', '{"message": "success"}')
     ->call('store')
     ->assertSet('endpoint', [
+        'hash' => 'DJ4MZ3LZ8K',
         'user' => '45EG523LPK',
         'segments' => 'test',
         'method' => 'POST',

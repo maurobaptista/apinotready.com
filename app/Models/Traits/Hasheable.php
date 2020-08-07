@@ -5,7 +5,13 @@ namespace App\Models\Traits;
 use Hashids\Hashids;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
+/**
+ * Trait Hasheable
+ * @package App\Models\Traits
+ * @method Model|null findByHash(string $hash)
+ */
 trait Hasheable
 {
     /** @var int */
@@ -60,8 +66,12 @@ trait Hasheable
     {
         $id = $this->hash()->decode($hash);
 
-        /** @var Model|null $item */
+        /** @var Model|Collection|null $item */
         $item = $query->find($id);
+
+        if ($item instanceof Collection) {
+            return $item->first();
+        }
 
         return $item;
     }

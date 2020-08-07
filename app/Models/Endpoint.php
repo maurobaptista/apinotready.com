@@ -43,7 +43,7 @@ class Endpoint extends Model
     public function getUrlAttribute(): string
     {
         $domain = $this->user_id === null
-            ? config('endpoint.domain')
+            ? config('endpoint.domain') . '/' . $this->hash
             : preg_replace('/{subdomain}/', $this->user->hash, config('endpoint.sub_domain'), 1);
 
         return  $domain . '/' . $this->segments;
@@ -71,6 +71,7 @@ class Endpoint extends Model
     public function toArray(): array
     {
         return [
+            'hash' => $this->hash,
             'user' => optional($this->user)->hash,
             'segments' => $this->segments,
             'method' => $this->method,

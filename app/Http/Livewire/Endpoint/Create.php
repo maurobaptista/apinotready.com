@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Endpoint;
 
 use App\Models\Endpoint;
 use App\Models\User;
+use App\Rules\EndpointIsUnique;
 use App\Rules\MethodIsValid;
 use App\Rules\ResponseIsValid;
 use Livewire\Component;
@@ -58,10 +59,9 @@ class Create extends Component
     {
         $validatedData = $this->validate($this->rules());
 
-        $userId = (empty($this->email))
+        $validatedData['user_id'] = (empty($this->email))
             ? null
             : User::firstOrCreate(['email' => $this->email])->id;
-        $validatedData['user_id'] = $userId;
 
         $this->endpoint = Endpoint::create($validatedData)->toArray();
 
@@ -70,10 +70,12 @@ class Create extends Component
 
     private function rules(): array
     {
+        $unique = new EndpointIsUnique($this->segments, $this->method, $this->email);
+
         return [
-            'email' => ['nullable', 'email'],
-            'segments' => ['required', 'min:2', 'max:256'],
-            'method' => ['required', new MethodIsValid],
+            'email' => ['nullable', 'email', $unique],
+            'segments' => ['required', 'min:2', 'max:256', $unique],
+            'method' => ['required', new MethodIsValid, $unique],
             'response' => ['required', new ResponseIsValid],
             'body' => ['json'],
         ];

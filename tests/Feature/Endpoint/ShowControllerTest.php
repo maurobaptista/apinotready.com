@@ -14,13 +14,13 @@ it('loads proper data when called with no user', function () {
         'body' => '{"message": "success"}',
     ]);
 
-    $response = getJson('http://apinotready.localhost/api/DJ4MZ3LZ8K/abc/test');
+    $response = getJson('http://api.apinotready.localhost/DJ4MZ3LZ8K/abc/test');
 
     $response->assertStatus(200);
     $response->assertExactJson([
         'message' => 'success'
     ]);
-});
+})->only();
 
 it('loads proper data when called with user', function () {
     factory(User::class)->create([

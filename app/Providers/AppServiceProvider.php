@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Endpoint;
-use App\Observers\EndpointObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Endpoint::observe(EndpointObserver::class);
+        //
     }
 }
