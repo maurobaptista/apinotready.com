@@ -31,7 +31,7 @@
         <server name="APP_DOMAIN" value="apinotready.localhost"/>
         <server name="APP_URL" value="http://apinotready.localhost"/>
 
-        <server name="API_DOMAIN" value="http://apinotready.localhost/api"/>
+        <server name="API_DOMAIN" value="http://api.apinotready.localhost"/>
         <server name="API_SUBDOMAIN" value="http://{subdomain}.apinotready.localhost"/>
     </php>
 </phpunit>
