@@ -20,7 +20,7 @@ it('loads proper data when called with no user', function () {
     $response->assertExactJson([
         'message' => 'success'
     ]);
-})->only();
+});
 
 it('loads proper data when called with user', function () {
     factory(User::class)->create([
