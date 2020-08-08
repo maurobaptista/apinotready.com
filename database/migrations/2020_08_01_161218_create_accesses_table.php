@@ -16,10 +16,15 @@ class CreateAccessesTable extends Migration
         Schema::create('accesses', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('endpoint_id')->unsigned();
+            $table->bigInteger('response_id')->unsigned();
             $table->timestamp('created_at', 0)->nullable();
 
             $table->foreign('endpoint_id')
                 ->references('id')->on('endpoints')
+                ->onDelete('cascade');
+
+            $table->foreign('response_id')
+                ->references('id')->on('responses')
                 ->onDelete('cascade');
         });
     }
