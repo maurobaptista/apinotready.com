@@ -23,9 +23,32 @@
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
-    height: 50px;
+    height: 150px;
+    transform: rotateY(180deg);
 }
 
 .hero-divider .shape-fill {
     fill: #FFFFFF;
+}
+
+.get {
+    @apply bg-green-400 text-gray-100;
+}
+
+.head,
+.options,
+.patch {
+    @apply bg-gray-600 text-gray-100;
+}
+
+.post {
+    @apply bg-yellow-400 text-gray-700;
+}
+
+.put {
+    @apply bg-blue-400 text-gray-100;
+}
+
+.delete {
+    @apply bg-red-600 text-gray-100;
 }

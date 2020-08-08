@@ -1,7 +1,7 @@
 <div>
     <form wire:submit.prevent="store">
         <div class="mb-4">
-            <label for="email" class="font-sans text-sm text-gray-700">
+            <label for="email" class="text-sm">
                 Email (not required)
             </label>
             <input wire:model="email" name="email" type="email"
@@ -20,7 +20,7 @@
 
         <div class="mb-4 sm:inline-flex w-full">
             <div class="w-full sm:w-32 mb-4 sm:mb-0">
-                <label for="method" class="font-sans text-sm text-gray-700">
+                <label for="method" class="text-sm">
                     Method
                 </label>
                 <div class="nline-block relative mr-4">
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="flex-grow">
-                <label for="segments" class="font-sans text-sm text-gray-700">
+                <label for="segments" class="text-sm">
                     Endpoint
                 </label>
                 <input wire:model="segments" name="segments" type="text"
@@ -61,10 +61,10 @@
         <div class="mb-4">
             <div class="flex justify-between">
                 <div>
-                    <label for="body" class="font-sans text-sm text-gray-700">Response</label>
+                    <label for="body" class="text-sm">Response</label>
                 </div>
                 <div>
-                    <label for="body" class="font-sans text-sm text-gray-700">Code:</label>
+                    <label for="body" class="font-sans">Code:</label>
                     <div class="inline-block w-20 relative">
                         <select wire:model="code" name="code"
                                 class="
@@ -79,7 +79,9 @@
                             @endforeach
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-white-700">
-                            <svg class="fill-current h-4 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            <svg class="fill-current h-4 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
                         </div>
                     </div>
                 </div>
@@ -121,9 +123,45 @@
         </button>
     </form>
 
-    @if ($recentCreatedEndpoint)
+    @if ($recentCreatedEndpoint && is_array($endpoint))
         <div>
-            Endpoint Created
+            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-2 my-6" role="alert">
+                Endpoint Created
+            </div>
+
+            <div class="text-sm">
+                Endpoint: <span class="inline-block {{ strtolower($endpoint['method']) }} rounded-full px-3 py-0 font-semibold text-gray-700 mr-2">
+                    {{ $endpoint['method'] }}
+                </span>
+                <BR>
+            </div>
+            <div class="font-title text-xl text-purple-600 mt-2">
+                <input id="endpointCopy" type="text" class="w-full inline-block focus:outline-none" value="{{ $endpoint['url'] }}" />
+                <div class="inline-block relative">
+                    <button onclick="copy('endpointCopy')"
+                            class="
+                                inline-block rounded px-1 py-1 ml-2
+                                font-semibold text-white bg-purple-600 hover:bg-purple-800
+                                focus:outline-none
+                            ">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-4 h-4 fill-current">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="text-sm mt-6">
+                Response:
+                <span class="inline-block bg-gray-200 rounded-full px-3 py-0 font-semibold mr-2">
+                    {{ $endpoint['code'] }}
+                </span>
+                <span>
+                    {{ config('endpoint.responses.' . $endpoint['code']) }}
+                </span>
+                <BR>
+            </div>
+            {{ json_encode($endpoint['body']) }}
         </div>
     @endif
 </div>

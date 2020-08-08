@@ -27,7 +27,7 @@ class Create extends Component
     /** @var string */
     public $body = '';
 
-    /** @var Endpoint */
+    /** @var array[] */
     public $endpoint;
 
     /** @var bool */
@@ -37,6 +37,12 @@ class Create extends Component
     protected $listeners = [
         'endpointCreated' => 'showEndpointCreated'
     ];
+
+    public function mount()
+    {
+        $this->recentCreatedEndpoint = true;
+        $this->endpoint = Endpoint::whereNull('user_id')->first()->toArray();
+    }
 
     public function updated(string $field): void
     {
