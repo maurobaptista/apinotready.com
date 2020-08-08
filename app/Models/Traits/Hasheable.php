@@ -6,11 +6,13 @@ use Hashids\Hashids;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Trait Hasheable
  * @package App\Models\Traits
  * @method Model|null findByHash(string $hash)
+ * @method Model findByHashOrFail(string $hash)
  */
 trait Hasheable
 {
@@ -64,14 +66,30 @@ trait Hasheable
      */
     public function scopeFindByHash(Builder $query, string $hash): ?Model
     {
-        $id = $this->hash()->decode($hash);
+        $decodedIds = $this->hash()->decode($hash);
+
+        abort_unless(isset($decodedIds[0]), 400, 'Failed to decode hash');
 
         /** @var Model|Collection|null $item */
-        $item = $query->find($id);
+        $item = $query->find($decodedIds[0]);
 
-        if ($item instanceof Collection) {
-            return $item->first();
-        }
+        return $item;
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $hash
+     * @return Model|null
+     * @throws \Throwable
+     */
+    public function scopeFindByHashOrFail(Builder $query, string $hash): Model
+    {
+        $item = $query->findByHash($hash)->first();
+
+        throw_if(
+            $item === null,
+            NotFoundHttpException::class
+        );
 
         return $item;
     }

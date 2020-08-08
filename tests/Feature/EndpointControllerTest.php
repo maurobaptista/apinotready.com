@@ -4,6 +4,7 @@ use App\Models\Endpoint;
 use App\Models\Response;
 use App\Models\User;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use function Pest\Laravel\{getJson};
 
 it('loads proper data when called with no user', function () {
@@ -50,3 +51,19 @@ it('loads proper data when called with user', function () {
         'message' => 'success'
     ]);
 });
+
+it('fails if endpoint doesnt exist', function () {
+    $response = getJson('http://api.apinotready.localhost/DJ4MZ3LZ8K/abc/test');
+
+    $response->assertStatus(404);
+});
+
+it('fails if endpoint with user doesnt exist', function () {
+    $response = getJson('http://45EG523LPK.apinotready.localhost/abc/test');
+
+    $response->assertStatus(404);
+});
+
+it('fails if method is different', function () {
+
+})->skip('To be done');

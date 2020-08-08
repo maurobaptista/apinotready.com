@@ -53,10 +53,9 @@ class EndpointLoader
      */
     private function get(array $segments, string $method): Endpoint
     {
-        /** @var Endpoint|null $endpoint */
-        $endpoint = Endpoint::findByHash(array_shift($segments));
+        /** @var Endpoint $endpoint */
+        $endpoint = Endpoint::findByHashOrFail(array_shift($segments));
 
-        abort_if($endpoint === null, 404, 'Endpoint not found');
         abort_unless($endpoint->method === $method, 405, 'Invalid method');
 
         return $endpoint;
