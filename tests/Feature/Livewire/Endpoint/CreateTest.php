@@ -3,13 +3,12 @@
 use App\Http\Livewire\Endpoint\Create;
 use App\Models\Endpoint;
 use App\Models\User;
-use Livewire\Livewire;
 use function Pest\Livewire\livewire;
 
 it('properly saves data when submitted with no email')
     ->livewire(Create::class)
     ->set('email', null)
-    ->set('segments', '/test')
+    ->set('segments', '/test_test-123')
     ->set('method', 'POST')
     ->set('code', 201)
     ->set('body', '{"message": "success"}')
@@ -17,11 +16,11 @@ it('properly saves data when submitted with no email')
     ->assertSet('endpoint', [
         'hash' => 'DJ4MZ3LZ8K',
         'user' => null,
-        'segments' => 'test',
+        'segments' => 'test_test-123',
         'method' => 'POST',
         'code' => 201,
         'body' => ["message" => "success"],
-        'url' => 'http://api.apinotready.localhost/DJ4MZ3LZ8K/test',
+        'url' => 'http://api.apinotready.localhost/DJ4MZ3LZ8K/test_test-123',
     ])
     ->assertEmitted('endpointCreated')
     ->emit('endpointCreated')
@@ -30,7 +29,7 @@ it('properly saves data when submitted with no email')
 it('properly saves data when submitted with email')
     ->livewire(Create::class)
     ->set('email', 'john.doe@sample.com')
-    ->set('segments', '/test')
+    ->set('segments', '/test_test-123?test=123#something')
     ->set('method', 'POST')
     ->set('code', 201)
     ->set('body', '{"message": "success"}')
@@ -38,11 +37,11 @@ it('properly saves data when submitted with email')
     ->assertSet('endpoint', [
         'hash' => 'DJ4MZ3LZ8K',
         'user' => '45EG523LPK',
-        'segments' => 'test',
+        'segments' => 'test_test-123?test=123#something',
         'method' => 'POST',
         'code' => 201,
         'body' => ["message" => "success"],
-        'url' => 'http://45EG523LPK.apinotready.localhost/test',
+        'url' => 'http://45EG523LPK.apinotready.localhost/test_test-123?test=123#something',
     ])
     ->assertEmitted('endpointCreated')
     ->emit('endpointCreated')
@@ -70,13 +69,33 @@ it('asserts segment is required')
 ;
 it('asserts segment is greater than 2 chars')
     ->livewire(Create::class)
-    ->set('segments', '/')
+    ->set('segments', 'a')
     ->set('method', 'POST')
     ->set('code', 201)
     ->set('body', '{"message": "success"}')
     ->call('store')
     ->assertNotEmitted('endpointCreated')
     ->assertHasErrors(['segments' => 'min']);
+
+it('asserts segment is valid')
+    ->livewire(Create::class)
+    ->set('segments', '/////////////')
+    ->set('method', 'POST')
+    ->set('code', 201)
+    ->set('body', '{"message": "success"}')
+    ->call('store')
+    ->assertNotEmitted('endpointCreated')
+    ->assertHasErrors(['segments' => 'app\_rules\_segment_is_valid']);
+
+it('asserts segment only accepts alpha-numeric, dash and underscore')
+    ->livewire(Create::class)
+    ->set('segments', '/test@+/')
+    ->set('method', 'POST')
+    ->set('code', 201)
+    ->set('body', '{"message": "success"}')
+    ->call('store')
+    ->assertNotEmitted('endpointCreated')
+    ->assertHasErrors(['segments' => 'regex']);
 
 it('asserts segment is shorter than 256 chars')
     ->livewire(Create::class)

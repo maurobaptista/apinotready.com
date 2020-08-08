@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Rules\EndpointIsUnique;
 use App\Rules\MethodIsValid;
 use App\Rules\CodeIsValid;
+use App\Rules\SegmentIsValid;
 use Livewire\Component;
 
 class Create extends Component
@@ -83,7 +84,14 @@ class Create extends Component
 
         return [
             'email' => ['nullable', 'email', $unique],
-            'segments' => ['required', 'min:2', 'max:256', $unique],
+            'segments' => [
+                'required',
+                'regex:/^[a-zA-Z0-9\-\_\/\.\#\=\?\&]+$/i',
+                'min:2',
+                'max:256',
+                new SegmentIsValid,
+                $unique
+            ],
             'method' => ['required', new MethodIsValid, $unique],
             'code' => ['required', new CodeIsValid],
             'body' => ['json'],

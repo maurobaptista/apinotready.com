@@ -35,8 +35,8 @@
         </div>
 
         <div class="mb-4 relative">
-            <label for="response">Response</label>
-            <select wire:model="response" name="response"
+            <label for="body">Response</label>
+            <select wire:model="code" name="code"
                     class="
                         absolute
                         right-0
