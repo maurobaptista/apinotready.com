@@ -7,7 +7,7 @@ use App\Services\EndpointLoader;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class EndpointController
+class ApiController
 {
     /** @var EndpointLoader */
     private $endpointLoader;
@@ -25,6 +25,7 @@ class EndpointController
      * @param User $user
      * @param Request $request
      * @return JsonResponse
+     * @throws \Throwable
      */
     public function __invoke(User $user, Request $request): JsonResponse
     {

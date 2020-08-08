@@ -4,7 +4,8 @@ namespace App\Services;
 
 use App\Models\Endpoint;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EndpointLoader
 {
@@ -13,11 +14,10 @@ class EndpointLoader
      * @param array $segments
      * @param string $method
      * @return Endpoint
+     * @throws \Throwable
      */
     public function load(User $user, array $segments, string $method): Endpoint
     {
-        abort_unless($segments[0], 400, 'Invalid Url');
-
         if ($user->exists) {
             return $this->getFromUser($user, $segments, $method);
         }
@@ -30,6 +30,7 @@ class EndpointLoader
      * @param array $segments
      * @param string $method
      * @return Endpoint
+     * @throws \Throwable
      */
     private function getFromUser(User $user, array $segments, string $method): Endpoint
     {
@@ -37,11 +38,11 @@ class EndpointLoader
             ->where('segments', implode('/', $segments))
             ->get();
 
-        abort_if($endpoints->isEmpty(), 404, 'Endpoint not found');
+        throw_if($endpoints->isEmpty(), NotFoundHttpException::class);
 
         $hasMethod = (bool) $endpoints->where('method', $method)->count();
 
-        abort_unless($hasMethod, 405, 'Invalid method');
+        throw_unless($hasMethod, MethodNotAllowedHttpException::class);
 
         return $endpoints->first();
     }
@@ -50,13 +51,14 @@ class EndpointLoader
      * @param array $segments
      * @param string $method
      * @return Endpoint
+     * @throws \Throwable
      */
     private function get(array $segments, string $method): Endpoint
     {
         /** @var Endpoint $endpoint */
         $endpoint = Endpoint::findByHashOrFail(array_shift($segments));
 
-        abort_unless($endpoint->method === $method, 405, 'Invalid method');
+        throw_unless($endpoint->method === $method, MethodNotAllowedHttpException::class);
 
         return $endpoint;
     }
