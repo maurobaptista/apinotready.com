@@ -4,31 +4,28 @@
 
 @import "tailwindcss/utilities";
 
-
-.error {
-    @apply text-red-500 text-xs italic;
+.hero-gradient {
+    background: rgb(128,90,213);
+    background: linear-gradient(130deg, rgba(128,90,213,1) 0%, rgba(229,62,62,1) 50%, rgba(246,224,94,1) 100%);
 }
 
-.input {
-    @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight;
+.hero-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
 }
 
-.input:focus {
-    @apply outline-none shadow-outline;
+.hero-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 50px;
 }
 
-.input-error {
-    @apply border-red-500;
-}
-
-.btn {
-    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
-}
-
-.btn:hover {
-    @apply bg-blue-700;
-}
-
-.btn:focus {
-    @apply outline-none shadow-outline;
+.hero-divider .shape-fill {
+    fill: #FFFFFF;
 }

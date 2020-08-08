@@ -1,9 +1,14 @@
+const { fontFamily } = require('tailwindcss/defaultTheme');
+
 module.exports = {
   purge: [
       './resources/**/*.blade.php',
   ],
   theme: {
-    extend: {},
+      fontFamily: {
+          'sans': fontFamily.sans,
+          'title': ['Nunito'],
+      }
   },
   variants: {},
   plugins: [],
