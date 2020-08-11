@@ -66,7 +66,7 @@ trait Hasheable
      */
     public function scopeFindByHash(Builder $query, string $hash): ?Model
     {
-        $decodedIds = $this->hash()->decode($hash);
+        $decodedIds = $this->hash()->decode(strtoupper($hash));
 
         abort_unless(isset($decodedIds[0]), 400, 'Failed to decode hash');
 
@@ -84,7 +84,7 @@ trait Hasheable
      */
     public function scopeFindByHashOrFail(Builder $query, string $hash): Model
     {
-        $item = $query->findByHash($hash)->first();
+        $item = $query->findByHash($hash);
 
         throw_if(
             $item === null,

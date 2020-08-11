@@ -135,9 +135,9 @@
                 </span>
                 <BR>
             </div>
-            <div class="font-title text-xl text-purple-600 mt-2">
-                <input id="endpointCopy" type="text" class="w-full inline-block focus:outline-none" value="{{ $endpoint['url'] }}" />
-                <div class="inline-block relative">
+            <div class="font-title text-xl text-purple-600 mt-2 flex">
+                <input id="endpointCopy" type="text" class="flex-grow inline-block focus:outline-none" value="{{ $endpoint['url'] }}" />
+                <div class="relative">
                     <button onclick="copy('endpointCopy')"
                             class="
                                 inline-block rounded px-1 py-1 ml-2
@@ -161,7 +161,10 @@
                 </span>
                 <BR>
             </div>
-            {{ json_encode($endpoint['body']) }}
+            <div x-data="{body: JSON.stringify(@this.get('endpoint.body'), undefined, 4)}">
+            <pre id="body" class="font-mono overflow-x-auto" x-text="body">
+            </pre>
+            </div>
         </div>
     @endif
 </div>

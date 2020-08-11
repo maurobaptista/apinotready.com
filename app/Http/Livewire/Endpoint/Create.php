@@ -38,11 +38,10 @@ class Create extends Component
         'endpointCreated' => 'showEndpointCreated'
     ];
 
-    public function mount()
-    {
-        $this->recentCreatedEndpoint = true;
-        $this->endpoint = Endpoint::whereNull('user_id')->first()->toArray();
-    }
+    /** @var string[] */
+    protected $cats = [
+        'body' => 'json',
+    ];
 
     public function updated(string $field): void
     {
