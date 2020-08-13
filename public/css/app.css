@@ -18041,31 +18041,62 @@ video {
           animation: bounce 1s infinite;
 }
 
-.hero-gradient {
+.bg-gradient {
   background: #805ad5;
   background: linear-gradient(130deg, #805ad5 0%, #e53e3e 50%, #f6e05e 100%);
 }
 
-.hero-divider {
+.bg-purple-gradient {
+  background: #e9d8fd;
+  background: linear-gradient(83deg, #e9d8fd 0%, #d6bcfa 100%);
+}
+
+.bg-yellow-gradient {
+  background: ivory;
+  background: radial-gradient(circle, ivory 0%, #faf089 100%);
+}
+
+.text-gradient {
+  background: linear-gradient(130deg, #805ad5 0%, #e53e3e 50%, #f6e05e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.divider {
   position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  transform: rotate(180deg);
 }
 
-.hero-divider svg {
+.divider svg {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
-  height: 150px;
-  transform: rotateY(180deg);
 }
 
-.hero-divider .shape-fill {
-  fill: #FFFFFF;
+.divider-bottom {
+  bottom: 0;
+  left: 0;
+}
+
+.divider-top {
+  top: 0;
+  left: 0;
+}
+
+.divider-rotated {
+  transform: rotate(180deg);
+}
+
+.marked {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 1.125rem;
+  border-radius: 0.125rem;
+  overflow-wrap: break-word;
 }
 
 .get {

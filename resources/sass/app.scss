@@ -4,31 +4,62 @@
 
 @import "tailwindcss/utilities";
 
-.hero-gradient {
+.bg-gradient {
     background: rgb(128,90,213);
     background: linear-gradient(130deg, rgba(128,90,213,1) 0%, rgba(229,62,62,1) 50%, rgba(246,224,94,1) 100%);
 }
 
-.hero-divider {
+.bg-purple-gradient {
+    background: rgb(233,216,253);
+    background: linear-gradient(83deg, rgba(233,216,253,1) 0%, rgba(214,188,250,1) 100%);
+}
+
+.bg-yellow-gradient {
+    background: rgb(255,255,240);
+    background: radial-gradient(circle, rgba(255,255,240,1) 0%, rgba(250,240,137,1) 100%);
+}
+
+.text-gradient {
+    background: linear-gradient(130deg, rgba(128,90,213,1) 0%, rgba(229,62,62,1) 50%, rgba(246,224,94,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.divider {
     position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     overflow: hidden;
     line-height: 0;
-    transform: rotate(180deg);
 }
 
-.hero-divider svg {
+.divider svg {
     position: relative;
     display: block;
     width: calc(100% + 1.3px);
-    height: 150px;
-    transform: rotateY(180deg);
 }
 
-.hero-divider .shape-fill {
-    fill: #FFFFFF;
+.divider-bottom {
+    bottom: 0;
+    left: 0;
+}
+
+.divider-top {
+    top: 0;
+    left: 0;
+}
+
+.divider-rotated {
+    transform: rotate(180deg);
+}
+
+.marked {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-size: 1.125rem;
+    border-radius: 0.125rem;
+    overflow-wrap: break-word;
 }
 
 .get {
