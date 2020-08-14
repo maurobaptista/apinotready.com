@@ -129,6 +129,9 @@
         </h1>
     </div>
 
+    <div style="width: 64px; height: 64px;" class="bg-gradient font-title text-white font-bold rounded-lg m-64 relative">
+        <div class="absolute text-6xl">A</div>
+    </div>
     <script src="{{ mix('js/app.js') }}"></script>
     @livewireScripts
     @stack ('scripts')
