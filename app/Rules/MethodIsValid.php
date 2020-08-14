@@ -6,10 +6,6 @@ use Illuminate\Contracts\Validation\Rule;
 
 class MethodIsValid implements Rule
 {
-    public function validate()
-    {
-        return false;
-    }
     /**
      * Determine if the validation rule passes.
      *
