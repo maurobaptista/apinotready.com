@@ -87,7 +87,7 @@ trait Hasheable
         $item = $query->findByHash($hash);
 
         throw_if(
-            $item === null,
+            $item === null || ! $item instanceof Model,
             NotFoundHttpException::class
         );
 
