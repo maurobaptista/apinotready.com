@@ -18,6 +18,7 @@ For testing: [Pest](https://pestphp.com/)
 
 Development Environment: [Laradock](https://laradock.io/)
 
+
 ```
 docker-compose up -d nginx mysql adminer redis maildev workspace
 ```
