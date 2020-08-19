@@ -1,60 +1,24 @@
 <div>
     <form wire:submit.prevent="store">
-        <div class="mb-4">
-            <label for="email" class="text-sm">
-                Email (not required)
-            </label>
-            <input wire:model="email" name="email" type="email"
-                   class="
-                        w-full py-2 px-3 text-gray-700 leading-tight
-                        appearance-none border-b-2
-                        focus:outline-none
-                        @error('email') border-red-400
-                        @else focus:border-purple-600
-                        @enderror
-                   ">
-            @error('email')
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 mb-2 mt-2" role="alert">{{ $message }}</div>
-            @enderror
-        </div>
+        <x-input
+            label="Email (not required)"
+            name="email"
+            type="email"
+        />
 
         <div class="mb-4 sm:inline-flex w-full">
-            <div class="w-full sm:w-32 mb-4 sm:mb-0">
-                <label for="method" class="text-sm">
-                    Method
-                </label>
-                <div class="nline-block relative mr-4">
-                    <select wire:model="method" name="method"
-                        class="
-                            block appearance-none w-full bg-white border-b-2
-                            px-4 py-2 pr-8 leading-tight focus:outline-none focus:shadow-outline
-                            @error('method') border-red-400
-                            @else focus:border-purple-600
-                            @endif
-                        ">
-                            @foreach ($methods as $method)
-                                <option value="{{ $method }}">{{ $method }}</option>
-                            @endforeach
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
-                </div>
+            <div class="w-full sm:w-32 sm:mb-0">
+                <x-select
+                    label="Method"
+                    name="method"
+                    :options="$methods"
+                />
             </div>
             <div class="flex-grow">
-                <label for="segments" class="text-sm">
-                    Endpoint
-                </label>
-                <input wire:model="segments" name="segments" type="text"
-                   class="
-                        w-full py-2 px-3 text-gray-700 leading-tight
-                        appearance-none border-b-2
-                        focus:outline-none
-                        @error('endpoint') border-red-400
-                        @else focus:border-purple-600
-                        @enderror
-                   "
-            >
+                <x-input
+                    label="Endpoint"
+                    name="endpoint"
+                />
             </div>
         </div>
 
