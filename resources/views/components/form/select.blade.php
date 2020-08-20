@@ -1,18 +1,18 @@
-<div class="mb-4">
+<div {{ $attributes }}>
     <label for="{{ $name }}" class="text-sm">
         {{ $label }}
     </label>
-    <div class="nline-block relative mr-4">
+    <div class="inline-block relative mr-4">
         <select wire:model="{{ $name }}" name="{{ $name }}"
                 class="
-                            block appearance-none w-full bg-white border-b-2
-                            px-4 py-2 pr-8 leading-tight focus:outline-none focus:shadow-outline
-                            @error($name) border-red-400
-                            @else focus:border-purple-600
-                            @endif
-                    ">
-            @foreach ($options as $option)
-                <option value="{{ $option }}">{{ $option }}</option>
+                    block appearance-none w-full bg-white border-b-2
+                    px-4 py-2 pr-8 leading-tight focus:outline-none focus:shadow-outline
+                    @error($name) border-red-400
+                    @else focus:border-purple-600
+                    @endif
+                ">
+            @foreach ($options as $key => $value)
+                <option value="{{ $key }}">{{ $display($key, $value) }}</option>
             @endforeach
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
