@@ -61,10 +61,7 @@
         @enderror
 
         <button type="submit"
-                class="
-                    bg-purple-600 text-white font-bold py-2 px-4 rounded mt-4
-                    hover:bg-opacity-75
-                ">
+                class="btn">
             Save Endpoint
         </button>
     </form>
