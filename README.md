@@ -1,4 +1,5 @@
 # [ApiNotReady](https://apinotready.com)
+![ApiNotReady.com](https://github.com/maurobaptista/apinotready.com/workflows/ApiNotReady.com/badge.svg?branch=main)
 
 ## About ApiNotReady
 
