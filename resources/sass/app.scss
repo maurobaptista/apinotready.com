@@ -1,65 +1,47 @@
 @import "tailwindcss/base";
-
 @import "tailwindcss/components";
-
 @import "tailwindcss/utilities";
 
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+@import url('https://fonts.googleapis.com/css?family=Fira+Code:400');
+
 .bg-gradient {
-    background: rgb(128,90,213);
-    background: linear-gradient(130deg, rgba(128,90,213,1) 0%, rgba(229,62,62,1) 50%, rgba(246,224,94,1) 100%);
+    @apply bg-gradient-to-br from-purple-600 via-pink-600 to-yellow-400;
 }
 
-.bg-purple-gradient {
-    background: rgb(233,216,253);
-    background: linear-gradient(83deg, rgba(233,216,253,1) 0%, rgba(214,188,250,1) 100%);
+.btn {
+    @apply bg-purple-600 text-white font-bold py-2 px-4 rounded mt-4;
 }
 
-.bg-yellow-gradient {
-    background: rgb(255,255,240);
-    background: radial-gradient(circle, rgba(255,255,240,1) 0%, rgba(250,240,137,1) 100%);
+.btn:hover {
+    @apply bg-gradient-to-r from-purple-600 via-purple-800 to-purple-600;
 }
 
 .text-gradient {
-    background: linear-gradient(130deg, rgba(128,90,213,1) 0%, rgba(229,62,62,1) 50%, rgba(246,224,94,1) 100%);
+    @apply bg-gradient;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .divider {
-    position: absolute;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
+    @apply absolute w-full overflow-hidden;
 }
 
 .divider svg {
-    position: relative;
-    display: block;
+    @apply relative block;
     width: calc(100% + 1.3px);
 }
 
 .divider-bottom {
-    bottom: 0;
-    left: 0;
+    @apply bottom-0 left-0;
 }
 
 .divider-top {
-    top: 0;
-    left: 0;
-}
-
-.divider-rotated {
-    transform: rotate(180deg);
+    @apply top-0 left-0;
 }
 
 .marked {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    font-size: 1.125rem;
-    border-radius: 0.125rem;
-    overflow-wrap: break-word;
+    @apply px-4 py-1 break-words text-lg rounded-sm;
 }
 
 .get {
