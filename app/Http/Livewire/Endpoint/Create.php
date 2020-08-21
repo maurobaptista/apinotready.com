@@ -8,6 +8,7 @@ use App\Rules\EndpointIsUnique;
 use App\Rules\MethodIsValid;
 use App\Rules\CodeIsValid;
 use App\Rules\SegmentIsValid;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Create extends Component
@@ -48,19 +49,28 @@ class Create extends Component
         $this->validateOnly($field, $this->rules());
     }
 
-    public function render()
+    /**
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.endpoint.create', [
-            'methods' => config('endpoint.methods'),
+            'methods' => array_combine(config('endpoint.methods'), config('endpoint.methods')),
             'responses' => config('endpoint.responses'),
         ]);
     }
 
+    /**
+     * Listener
+     */
     public function showEndpointCreated(): void
     {
         $this->recentCreatedEndpoint = true;
     }
 
+    /**
+     * Store endpoint and its initial response
+     */
     public function store(): void
     {
         $validated = collect($this->validate($this->rules()));
@@ -83,6 +93,9 @@ class Create extends Component
         $this->emit('endpointCreated');
     }
 
+    /**
+     * @return array
+     */
     private function rules(): array
     {
         $unique = new EndpointIsUnique($this->segments, $this->method, $this->email);
