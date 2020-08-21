@@ -38,4 +38,4 @@ jobs:
 
       - name: Execute tests
 
-        run: vendor/bin/pest --coverage --min=100
+        run: vendor/bin/pest --coverage --min=90
