@@ -29,4 +29,4 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: composer test:coverage
+        run: ./vendor/bin/pest --coverage --min=90
