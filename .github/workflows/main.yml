@@ -6,7 +6,8 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: shivammathur/setup-php@v2
+      - name: Setup PHP with Xdebug
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
           coverage: xdebug
