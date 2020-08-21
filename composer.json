@@ -54,6 +54,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "test:run": "./vendor/bin/pest",
+        "test:coverage": "./vendor/bin/pest --coverage --min=90",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
