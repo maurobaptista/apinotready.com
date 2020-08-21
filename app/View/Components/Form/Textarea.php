@@ -5,7 +5,7 @@ namespace App\View\Components\Form;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
-class TextArea extends Component
+class Textarea extends Component
 {
     /** @var string */
     public $label;
