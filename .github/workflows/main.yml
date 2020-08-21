@@ -2,9 +2,11 @@ name: ApiNotReady.com
 
 on:
   push:
-    branches: [ * ]
+    branches:
+      - *
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   unit-tests:
