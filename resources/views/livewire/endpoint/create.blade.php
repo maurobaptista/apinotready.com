@@ -60,8 +60,7 @@
             <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-2 mb-2 mt-2" role="alert">{{ $message }}</div>
         @enderror
 
-        <button type="submit"
-                class="btn">
+        <button type="submit" class="btn">
             Save Endpoint
         </button>
     </form>

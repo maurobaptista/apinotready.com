@@ -13,11 +13,13 @@
 
     @livewireStyles
 </head>
-<body class="bg-white font-sans text-gray-700">
+<body class="bg-white font-sans text-gray-700"
+      x-data="{ 'showModal': true }" @keydown.escape="showModal = false" x-cloak
+>
     @include ('layouts.common.header')
 
     <div class="w-full m-auto max-w-xs md:max-w-2xl flex -mt-64">
-        <div class="w-full bg-white p-4 rounded-lg shadow-xl z-10" style="top: -16rem">
+        <div class="w-full bg-white p-4 rounded-lg shadow-xl z-0" style="top: -16rem">
             @yield('content')
         </div>
     </div>
